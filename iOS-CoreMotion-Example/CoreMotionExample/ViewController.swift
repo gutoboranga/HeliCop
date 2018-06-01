@@ -73,6 +73,7 @@ class ViewController: UIViewController {
                 self.xPosition += x;
                 xLabel.text = String(self.xPosition)
                 
+                send(text: createMessage());
                 
             } else {
                 x = 0
@@ -94,5 +95,9 @@ class ViewController: UIViewController {
             
 //            print("x: ",x,"\ty: ",y,"\tz: ",z)
         }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 }
