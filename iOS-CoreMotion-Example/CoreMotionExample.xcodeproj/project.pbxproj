@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4A49254920BF685F00D04487 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A49254820BF685F00D04487 /* Message.swift */; };
-		4A49254B20BF70D000D04487 /* Postman.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A49254A20BF70D000D04487 /* Postman.swift */; };
-		4A49254D20BF7B0800D04487 /* UDP_Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A49254C20BF7B0800D04487 /* UDP_Client.swift */; };
 		4AA3EFBF20C0D6F700E3D50F /* SwiftSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AA3EFBB20C0D10600E3D50F /* SwiftSocket.framework */; };
 		6D4BABE01C5130A60042ADA0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D4BABDF1C5130A60042ADA0 /* AppDelegate.swift */; };
 		6D4BABE21C5130A60042ADA0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D4BABE11C5130A60042ADA0 /* ViewController.swift */; };
@@ -19,9 +16,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4A49254820BF685F00D04487 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
-		4A49254A20BF70D000D04487 /* Postman.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Postman.swift; sourceTree = "<group>"; };
-		4A49254C20BF7B0800D04487 /* UDP_Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UDP_Client.swift; sourceTree = "<group>"; };
 		4AA3EFBB20C0D10600E3D50F /* SwiftSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftSocket.framework; path = Carthage/Build/iOS/SwiftSocket.framework; sourceTree = "<group>"; };
 		6D4BABDC1C5130A60042ADA0 /* CoreMotionExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreMotionExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D4BABDF1C5130A60042ADA0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -57,9 +51,6 @@
 			children = (
 				6D4BABDF1C5130A60042ADA0 /* AppDelegate.swift */,
 				6D4BABE11C5130A60042ADA0 /* ViewController.swift */,
-				4A49254820BF685F00D04487 /* Message.swift */,
-				4A49254A20BF70D000D04487 /* Postman.swift */,
-				4A49254C20BF7B0800D04487 /* UDP_Client.swift */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -209,10 +200,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D4BABE21C5130A60042ADA0 /* ViewController.swift in Sources */,
-				4A49254920BF685F00D04487 /* Message.swift in Sources */,
-				4A49254B20BF70D000D04487 /* Postman.swift in Sources */,
 				6D4BABE01C5130A60042ADA0 /* AppDelegate.swift in Sources */,
-				4A49254D20BF7B0800D04487 /* UDP_Client.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
