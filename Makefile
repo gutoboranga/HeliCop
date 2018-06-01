@@ -1,5 +1,6 @@
-setup:
+install:
 	pip install -r requirements.txt
 	
-run:
-	python simulation.py
+simulate:
+	cd simulator; python main.py
+	

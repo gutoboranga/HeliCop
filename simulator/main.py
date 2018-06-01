@@ -12,6 +12,7 @@ import itertools
 
 from scene import Scene, Heli
 from controller import Controller
+from gyro_controller import GyroController
 from camera import CameraType
 import trafo
 
@@ -85,7 +86,8 @@ def main():
     glutCreateWindow("Skybox")
 
     initScene()
-    controller = Controller(scene)
+    # controller = Controller(scene)
+    controller = GyroController(scene)
 
     glutDisplayFunc(display)     #register display function
     glutReshapeFunc(reshape)     #register reshape function
