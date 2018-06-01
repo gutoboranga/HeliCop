@@ -26,18 +26,18 @@ class Controller(object):
             global ttime
             ttime = time.time()
             
-        for k in self.pressedKeys:                
-            if k == 'a': 
+        for k in self.pressedKeys:
+            if k == 'a':
                 helicopter.gier(False)
             if k == 'd':
                 helicopter.gier(True)
 
-            if k == 'j': 
+            if k == 'j':
                 helicopter.roll(True)
             if k == 'l':
                 helicopter.roll(False)
 
-            if k == 'i': 
+            if k == 'i':
                 helicopter.nick(True)
             if k == 'k':
                 helicopter.nick(False)

@@ -59,7 +59,7 @@ def initScene():
     scene.addCamera(CameraType.FOLLOW)
     scene.addCamera(CameraType.THIRD_PERSON)
     
-    scene.addSkybox(skybox_01_info)   
+    scene.addSkybox(skybox_01_info)
     scene.addSkybox(skybox_02_info)
     
     scene.addHelicopter(helicopter_info)

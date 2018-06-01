@@ -52,9 +52,9 @@ class Heli(object):
     ROTOR_BACK = ['500-D_Blanco']
     HUBEL = ['500-D_Rojo']
 
-    GIER_ANGLE = radians(.3)
-    ROLL_ANGLE = radians(.5)
-    NICK_ANGLE = radians(.5)
+    GIER_ANGLE = radians(.15)
+    ROLL_ANGLE = radians(.15)
+    NICK_ANGLE = radians(.15)
     MAX_ANGLE_GIER = radians(5)
     MAX_ANGLE_ROLL = radians(45)
     MAX_ANGLE_NICK = radians(60)
@@ -105,7 +105,7 @@ class Heli(object):
         self.models.append(Model3D(mat_glass))
         
     def draw(self, camera, projection):
-        camera.update(self.position, self.orientation) 
+        camera.update(self.position, self.orientation)
 
         mvMat = camera.getLookAt()
         mvMat = dot(mvMat, trafo.translationMatrix(*self.position))
@@ -175,7 +175,7 @@ class Heli(object):
         front_blocked = self.movesFront(weighted_up) and not self.can_move_forward
         back_blocked = not self.movesFront(weighted_up) and not self.can_move_backward
 
-        gravity = array(GRAVITY) 
+        gravity = array(GRAVITY)
         pos = array(self.position)
         self.dir = weighted_up + gravity
         
@@ -349,7 +349,7 @@ class Camera(object):
     def getLookAt(self):
         return trafo.lookAtMatrix(self.e[0],self.e[1],self.e[2], self.c[0], self.c[1], self.c[2], self.up[0], self.up[1], self.up[2])
         
-    def update(self, helipos, orientation): 
+    def update(self, helipos, orientation):
         if self.cam_type == Camera.FIX_CAM:
             return
         self.c = helipos
@@ -373,7 +373,7 @@ class TexturedQuad(object):
         self.xsize, self.ysize = im.size
         self.texture_id = glGenTextures(1)
 
-        self.data = [vertex_coords[i] + TexturedQuad._texture_coords[i] for i in range(4)] 
+        self.data = [vertex_coords[i] + TexturedQuad._texture_coords[i] for i in range(4)]
         self.vb = vbo.VBO(array(self.data, "f"))
 
         self.program = self._init_shader("simpletexture")
@@ -430,9 +430,9 @@ class TexturedQuad(object):
 class Skybox(object):
     D = 100.0 # war mal 2.5
     FRONT = [[D,-D,-D], [-D,-D,-D], [-D,D,-D], [D,D,-D]]
-    LEFT = [[-D,-D,-D], [-D,-D,D], [-D,D,D],[-D,D,-D]] 
+    LEFT = [[-D,-D,-D], [-D,-D,D], [-D,D,D],[-D,D,-D]]
     BACK = [[-D,-D,D], [D,-D,D], [D,D,D], [-D,D,D]]
-    RIGHT = [[D,-D,D], [D,-D,-D], [D,D,-D], [D,D,D]] 
+    RIGHT = [[D,-D,D], [D,-D,-D], [D,D,-D], [D,D,D]]
     UP = [[D,D,D], [D,D,-D], [-D,D,-D], [-D,D,D]]
     DOWN = [[-D,-D,-D], [D,-D,-D], [D,-D,D], [-D,-D,D]]
     
@@ -543,7 +543,7 @@ class Scene(object):
                 self.helicopter.can_move_backward = False
         else:
             self.helicopter.can_move_forward = True
-            self.helicopter.can_move_backward = True 
+            self.helicopter.can_move_backward = True
 
     def updateHeliIntersections(self):
         intersect_data = self._heliIntersectSkybox()
