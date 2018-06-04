@@ -1,12 +1,17 @@
-import sys, time
+import sys, time, socket, json
 from OpenGL.GLUT import *
 
 ttime = 0
+PORT = 4000
 
 class GyroController(object):
     def __init__(self, scene):
         self.scene = scene
         self.pressedKeys = set()
+        
+        self.sock = socket.socket(socket.AF_INET, # Internet
+                             socket.SOCK_DGRAM) # UDP
+        self.sock.bind(("", PORT))
 
     def handleKeyDown(self, key, x, y):
         if key == chr(27):
@@ -38,9 +43,9 @@ class GyroController(object):
                 helicopter.roll(False)
 
             if k == 'i':
-                helicopter.nick(True)
+                helicopter.nick(-1)
             if k == 'k':
-                helicopter.nick(False)
+                helicopter.nick(1)
 
             if k == 'w':
                 helicopter.pitch(True)
@@ -58,3 +63,12 @@ class GyroController(object):
     
         if key in 'adjlikws':
             self.pressedKeys.remove(key)
+            
+    def idle(self):
+        data, addr = self.sock.recvfrom(1024) # buffer size is 1024 bytes
+        # print data
+        parsed = json.loads(data)
+        x = parsed['x']
+        
+        self.scene.helicopter.nick(x)
+        print x

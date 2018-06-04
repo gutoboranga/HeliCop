@@ -209,6 +209,28 @@ class Heli(object):
         self.rotor.angle = (self.rotor.angle + fac) % 360
         self.rotor_back.angle = (self.rotor_back.angle + 20) % 360
 
+
+class GyroHelicopter(Heli):
+    # este valor é a proporção do número medido pelo giroscópio
+    # e o grau em degrees. quando value == 14, significa 90 degrees
+    RATIO_TO_DEGREES = 6.4285
+    
+    def nick(self, value):
+        degrees = float(float(value) / 3) * float(self.RATIO_TO_DEGREES)
+        
+        rot_angle = radians(degrees)
+        # self.x_angle += rot_angle
+        # if self.x_angle > Heli.MAX_ANGLE_NICK:
+        #     self.x_angle = Heli.MAX_ANGLE_NICK
+        # elif self.x_angle < -Heli.MAX_ANGLE_NICK:
+        #     self.x_angle = -Heli.MAX_ANGLE_NICK
+        # else:
+        self._rotate(rot_angle, X_AXIS)
+        
+    def fly(self):
+        pass
+    
+
 class Model3D(object):
     _VARNAME_LIST =  ["mvMatrix", "mvpMatrix", "normalMatrix", "diffuseColor", "ambientColor", "specularColor", "alpha", "shininess","hasTexture",  "lightPosition"]
     
@@ -472,7 +494,7 @@ class Scene(object):
         self.cameras.append(camera)
 
     def addHelicopter(self, helicopter_info, position=None):
-        self.helicopter = Heli(*helicopter_info)
+        self.helicopter = GyroHelicopter(*helicopter_info)
         if position:
             self.helicopter.position = position
             

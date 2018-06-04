@@ -10,7 +10,7 @@ from math import *
 
 import itertools
 
-from scene import Scene, Heli
+from scene import Scene
 from controller import Controller
 from gyro_controller import GyroController
 from camera import CameraType
@@ -56,9 +56,9 @@ def initScene():
     global scene
     scene = Scene(FOV, aspect)
     
-    scene.addCamera(CameraType.FIX)
+    # scene.addCamera(CameraType.FIX)
     scene.addCamera(CameraType.FOLLOW)
-    scene.addCamera(CameraType.THIRD_PERSON)
+    # scene.addCamera(CameraType.THIRD_PERSON)
     
     scene.addSkybox(skybox_01_info)
     scene.addSkybox(skybox_02_info)
@@ -91,10 +91,10 @@ def main():
 
     glutDisplayFunc(display)     #register display function
     glutReshapeFunc(reshape)     #register reshape function
-    glutKeyboardFunc(controller.handleKeyDown) #register keyboard function
-    glutKeyboardUpFunc(controller.handleKeyUp) #register keyboard function
+    # glutKeyboardFunc(controller.handleKeyDown) #register keyboard function
+    # glutKeyboardUpFunc(controller.handleKeyUp) #register keyboard function
     glutTimerFunc(TIMER_MS, animation, 0)
-    #glutIdleFunc(idlefunc)
+    glutIdleFunc(controller.idle)
 
     initGL(WIDTH,HEIGHT) #initialize OpenGL state
     glutMainLoop() #start even processing

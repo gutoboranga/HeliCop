@@ -13,7 +13,7 @@ import SwiftSocket
 class ViewController: UIViewController {
 
     // Gyroscope stuff
-    let THRESHOLD = 0.5
+    let THRESHOLD = 0.01
     let motionManager = CMMotionManager()
 	var timer: Timer!
     
@@ -52,49 +52,59 @@ class ViewController: UIViewController {
         _ = client?.send(string: text)
     }
 
-    @IBAction func sendData(_ sender: Any) {
-        send(text: createMessage());
+    @IBAction func resetSensors(_ sender: Any) {
+        setX(x: 0)
+        setY(y: 0)
+        setZ(z: 0)
     }
     
     func createMessage() -> String {
-        let message = "{\"x\": \"" + String(xPosition) + "\"}"
+        var message = "{ "
+        
+        message += "\"x\": " + String(xPosition)
+//        message += ", "
+//
+//        message += "\"y\": " + String(yPosition)
+//        message += ", "
+//
+//        message += "\"z\": " + String(zPosition)
+        message += " }"
+//
         print(message)
         return message
-//        {"name": "top_memes_generator","version": "1.0.0"}
     }
     
     func update() {
         if let data = motionManager.deviceMotion {
-            var x = data.rotationRate.x
+            var x = 0
+            var y = 0
+            var z = 0
+            
+//            var x = data.rotationRate.x
 //            var y = data.rotationRate.y
 //            var z = data.rotationRate.z
             
-            if (abs(x) > THRESHOLD) {
-                self.xPosition += x;
-                xLabel.text = String(self.xPosition)
-                
+            if (abs(data.rotationRate.x) > THRESHOLD) {
+                setX(x: self.xPosition + data.rotationRate.x)
                 send(text: createMessage());
-                
-            } else {
-                x = 0
             }
-            
-//            if (abs(y) > THRESHOLD) {
-//                self.yPosition += y;
-//                yLabel.text = String(self.yPosition)
-//            } else {
-//                y = 0
-//            }
-//
-//            if (abs(z) > THRESHOLD) {
-//                self.zPosition += z;
-//                zLabel.text = String(self.zPosition)
-//            } else {
-//                z = 0
-//            }
-            
-//            print("x: ",x,"\ty: ",y,"\tz: ",z)
+//            createMessage()
         }
+    }
+    
+    func setX(x: Double) {
+        self.xPosition = x;
+        xLabel.text = String(self.xPosition)
+    }
+    
+    func setY(y: Double) {
+        self.yPosition = y;
+        yLabel.text = String(self.yPosition)
+    }
+    
+    func setZ(z: Double) {
+        self.yPosition = z;
+        zLabel.text = String(self.zPosition)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
