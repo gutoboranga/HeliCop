@@ -139,9 +139,15 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3s7-5L-Ici">
-                                <rect key="frame" x="161.5" y="575" width="52" height="32"/>
+                                <rect key="frame" x="20" y="551" width="335" height="96"/>
+                                <color key="backgroundColor" red="0.0" green="0.38159608490489605" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="96" id="ELb-LP-ziX"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
-                                <state key="normal" title="Reset"/>
+                                <state key="normal" title="Reset">
+                                    <color key="titleColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </state>
                                 <connections>
                                     <action selector="resetSensors:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uR4-EK-MmV"/>
                                 </connections>
@@ -149,11 +155,12 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="3s7-5L-Ici" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="1Fa-VA-ZYp"/>
                             <constraint firstItem="lGI-9Q-RkB" firstAttribute="leading" secondItem="2SM-a5-GfJ" secondAttribute="trailing" constant="8" id="3Nt-bA-2c9"/>
                             <constraint firstItem="2SM-a5-GfJ" firstAttribute="leading" secondItem="bvX-zj-grb" secondAttribute="leading" id="E56-T9-SFL"/>
                             <constraint firstItem="bvX-zj-grb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="60" id="Ejd-NQ-d9d"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="3s7-5L-Ici" secondAttribute="bottom" constant="60" id="RrT-5O-Xab"/>
-                            <constraint firstItem="3s7-5L-Ici" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="YMP-0Y-SnU"/>
+                            <constraint firstAttribute="trailing" secondItem="3s7-5L-Ici" secondAttribute="trailing" constant="20" id="RHo-S9-UkN"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="3s7-5L-Ici" secondAttribute="bottom" constant="20" id="RrT-5O-Xab"/>
                             <constraint firstItem="bvX-zj-grb" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="c0m-T3-8Fe"/>
                             <constraint firstItem="2SM-a5-GfJ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="54.5" id="iSc-EM-fwb"/>
                             <constraint firstAttribute="trailing" secondItem="lGI-9Q-RkB" secondAttribute="trailing" constant="60" id="pBy-ne-C5a"/>

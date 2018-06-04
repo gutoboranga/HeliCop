@@ -73,9 +73,9 @@ class GyroController(object):
         
         x = parsed['x']
         y = parsed['y']
-        # z = parsed['z']
+        z = parsed['z']
         
-        return x, y, 0
+        return x, y, z
         
     def idle(self):
         data = self.receive_from_socket()

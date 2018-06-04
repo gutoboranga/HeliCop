@@ -56,9 +56,9 @@ def initScene():
     global scene
     scene = Scene(FOV, aspect)
     
+    scene.addCamera(CameraType.THIRD_PERSON)
     # scene.addCamera(CameraType.FIX)
     # scene.addCamera(CameraType.FOLLOW)
-    scene.addCamera(CameraType.THIRD_PERSON)
     
     scene.addSkybox(skybox_01_info)
     scene.addSkybox(skybox_02_info)

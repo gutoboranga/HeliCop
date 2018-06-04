@@ -65,9 +65,9 @@ class ViewController: UIViewController {
         message += ", "
 
         message += "\"y\": " + String(yPosition)
-//        message += ", "
-//
-//        message += "\"z\": " + String(zPosition)
+        message += ", "
+
+        message += "\"z\": " + String(zPosition)
         message += " }"
 
         return message

@@ -214,8 +214,7 @@ class GyroHelicopter(Heli):
     # este valor é a proporção do número medido pelo giroscópio
     # e o grau em degrees. quando value == 14, significa 90 degrees
     RATIO_TO_DEGREES = 6.4285
-    
-    SMOOTH_CONSTANT = 10
+    SMOOTH_CONSTANT = 12
     
     currentX = 0
     currentY = 0
@@ -233,24 +232,22 @@ class GyroHelicopter(Heli):
             
         if z != self.currentZ:
             self.currentZ = z
-            # gira no z
+            self.gier(self.currentZ)
         
         # print(x, y, z)
     
     def nick(self, value):
-        degrees = float(float(value) / self.SMOOTH_CONSTANT) * float(self.RATIO_TO_DEGREES)
-        
-        rot_angle = radians(degrees)
         # self.x_angle += rot_angle
         # if self.x_angle > Heli.MAX_ANGLE_NICK:
         #     self.x_angle = Heli.MAX_ANGLE_NICK
         # elif self.x_angle < -Heli.MAX_ANGLE_NICK:
         #     self.x_angle = -Heli.MAX_ANGLE_NICK
         # else:
+        degrees = float(float(value) / self.SMOOTH_CONSTANT) * float(self.RATIO_TO_DEGREES)
+        rot_angle = radians(degrees)
         self._rotate(rot_angle, X_AXIS)
         
     def roll(self, value):
-        print(value)
         # rot_angle = Heli.ROLL_ANGLE if right else -Heli.ROLL_ANGLE
         # self.z_angle += rot_angle
         # if self.z_angle > Heli.MAX_ANGLE_ROLL:
@@ -258,13 +255,23 @@ class GyroHelicopter(Heli):
         # elif self.z_angle < -Heli.MAX_ANGLE_ROLL:
         #     self.z_angle = -Heli.MAX_ANGLE_ROLL
         # else:
-        
         degrees = float(-float(value) / self.SMOOTH_CONSTANT) * float(self.RATIO_TO_DEGREES)
         rot_angle = radians(degrees)
         self._rotate(rot_angle, Z_AXIS)
         
-    def fly(self):
-        pass
+    def gier(self, value):
+        # self.rot_angle += Heli.GIER_ANGLE if right else -Heli.GIER_ANGLE
+        # if self.rot_angle > Heli.MAX_ANGLE_GIER:
+        #     self.rot_angle = Heli.MAX_ANGLE_GIER
+        # elif self.rot_angle < -Heli.MAX_ANGLE_GIER:
+        #     self.rot_angle = -Heli.MAX_ANGLE_GIER
+        
+        degrees = float(-float(value) / self.SMOOTH_CONSTANT) * float(self.RATIO_TO_DEGREES)
+        rot_angle = radians(degrees)
+        self._rotate_global(rot_angle, Y_AXIS)
+        
+    # def fly(self):
+    #     pass
     
 
 class Model3D(object):
