@@ -64,11 +64,23 @@ class GyroController(object):
         if key in 'adjlikws':
             self.pressedKeys.remove(key)
             
-    def idle(self):
+    def receive_from_socket(self):
         data, addr = self.sock.recvfrom(1024) # buffer size is 1024 bytes
-        # print data
-        parsed = json.loads(data)
-        x = parsed['x']
+        return data
         
-        self.scene.helicopter.nick(x)
-        print x
+    def parse_json(self, data):
+        parsed = json.loads(data)
+        
+        x = parsed['x']
+        y = parsed['y']
+        # z = parsed['z']
+        
+        return x, y, 0
+        
+    def idle(self):
+        data = self.receive_from_socket()
+        
+        x, y, z = self.parse_json(data)
+        
+        # self.scene.helicopter.nick(x)
+        self.scene.helicopter.move(x, y, z)

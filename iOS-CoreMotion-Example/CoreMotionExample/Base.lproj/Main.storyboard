@@ -132,7 +132,7 @@
                                     <action selector="connect:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YTw-Bc-5lR"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="192.168.2.164" borderStyle="roundedRect" placeholder="machine ip" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2SM-a5-GfJ">
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="192.168.25.3" borderStyle="roundedRect" placeholder="machine ip" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2SM-a5-GfJ">
                                 <rect key="frame" x="60" y="74.5" width="175" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="15"/>

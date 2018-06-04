@@ -62,33 +62,41 @@ class ViewController: UIViewController {
         var message = "{ "
         
         message += "\"x\": " + String(xPosition)
-//        message += ", "
-//
-//        message += "\"y\": " + String(yPosition)
+        message += ", "
+
+        message += "\"y\": " + String(yPosition)
 //        message += ", "
 //
 //        message += "\"z\": " + String(zPosition)
         message += " }"
-//
-        print(message)
+
         return message
     }
     
     func update() {
         if let data = motionManager.deviceMotion {
-            var x = 0
-            var y = 0
-            var z = 0
-            
-//            var x = data.rotationRate.x
-//            var y = data.rotationRate.y
-//            var z = data.rotationRate.z
+            var moved = false
             
             if (abs(data.rotationRate.x) > THRESHOLD) {
-                setX(x: self.xPosition + data.rotationRate.x)
-                send(text: createMessage());
+                setX(x: (self.xPosition + data.rotationRate.x))
+                moved = true
             }
-//            createMessage()
+            
+            if (abs(data.rotationRate.y) > THRESHOLD) {
+                setY(y: (self.yPosition + data.rotationRate.y))
+                moved = true
+            }
+            
+            if (abs(data.rotationRate.z) > THRESHOLD) {
+                setZ(z: (self.zPosition + data.rotationRate.z))
+                moved = true
+            }
+            
+            // se moveu em algum eixo, envia msg pro socket
+            if (moved) {
+                send(text: createMessage())
+                print(createMessage())
+            }
         }
     }
     
@@ -103,7 +111,7 @@ class ViewController: UIViewController {
     }
     
     func setZ(z: Double) {
-        self.yPosition = z;
+        self.zPosition = z;
         zLabel.text = String(self.zPosition)
     }
     

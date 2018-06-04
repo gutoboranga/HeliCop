@@ -215,8 +215,30 @@ class GyroHelicopter(Heli):
     # e o grau em degrees. quando value == 14, significa 90 degrees
     RATIO_TO_DEGREES = 6.4285
     
+    SMOOTH_CONSTANT = 10
+    
+    currentX = 0
+    currentY = 0
+    currentZ = 0
+    
+    def move(self, x, y, z):
+        
+        if x != self.currentX:
+            self.currentX = x
+            self.nick(self.currentX)
+            
+        if y != self.currentY:
+            self.currentY = y
+            self.roll(self.currentY)
+            
+        if z != self.currentZ:
+            self.currentZ = z
+            # gira no z
+        
+        # print(x, y, z)
+    
     def nick(self, value):
-        degrees = float(float(value) / 3) * float(self.RATIO_TO_DEGREES)
+        degrees = float(float(value) / self.SMOOTH_CONSTANT) * float(self.RATIO_TO_DEGREES)
         
         rot_angle = radians(degrees)
         # self.x_angle += rot_angle
@@ -226,6 +248,20 @@ class GyroHelicopter(Heli):
         #     self.x_angle = -Heli.MAX_ANGLE_NICK
         # else:
         self._rotate(rot_angle, X_AXIS)
+        
+    def roll(self, value):
+        print(value)
+        # rot_angle = Heli.ROLL_ANGLE if right else -Heli.ROLL_ANGLE
+        # self.z_angle += rot_angle
+        # if self.z_angle > Heli.MAX_ANGLE_ROLL:
+        #     self.z_angle = Heli.MAX_ANGLE_ROLL
+        # elif self.z_angle < -Heli.MAX_ANGLE_ROLL:
+        #     self.z_angle = -Heli.MAX_ANGLE_ROLL
+        # else:
+        
+        degrees = float(-float(value) / self.SMOOTH_CONSTANT) * float(self.RATIO_TO_DEGREES)
+        rot_angle = radians(degrees)
+        self._rotate(rot_angle, Z_AXIS)
         
     def fly(self):
         pass
