@@ -83,7 +83,7 @@ def main():
     glutInit(sys.argv)
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH)
     glutInitWindowSize(WIDTH, HEIGHT)
-    glutCreateWindow("Skybox")
+    glutCreateWindow("Crazy Helicopter Pilot Simulator")
 
     initScene()
     # controller = Controller(scene)
