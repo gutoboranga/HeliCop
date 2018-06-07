@@ -214,7 +214,10 @@ class GyroHelicopter(Heli):
     # este valor é a proporção do número medido pelo giroscópio
     # e o grau em degrees. quando value == 14, significa 90 degrees
     RATIO_TO_DEGREES = 6.4285
-    SMOOTH_CONSTANT = 12
+    
+    NICK_SMOOTH = 12
+    ROLL_SMOOTH = 12
+    GIER_SMOOTH = 16
     
     currentX = 0
     currentY = 0
@@ -237,15 +240,18 @@ class GyroHelicopter(Heli):
         # print(x, y, z)
     
     def nick(self, value):
-        # self.x_angle += rot_angle
+        degrees = float(float(value) / self.NICK_SMOOTH) * float(self.RATIO_TO_DEGREES)
+        rot_angle = radians(degrees)
+        print(value)
+        
         # if self.x_angle > Heli.MAX_ANGLE_NICK:
         #     self.x_angle = Heli.MAX_ANGLE_NICK
         # elif self.x_angle < -Heli.MAX_ANGLE_NICK:
         #     self.x_angle = -Heli.MAX_ANGLE_NICK
         # else:
-        degrees = float(float(value) / self.SMOOTH_CONSTANT) * float(self.RATIO_TO_DEGREES)
-        rot_angle = radians(degrees)
+        #     self._rotate(rot_angle, X_AXIS)
         self._rotate(rot_angle, X_AXIS)
+        # self.x_angle = rot_angle
         
     def roll(self, value):
         # rot_angle = Heli.ROLL_ANGLE if right else -Heli.ROLL_ANGLE
@@ -255,7 +261,7 @@ class GyroHelicopter(Heli):
         # elif self.z_angle < -Heli.MAX_ANGLE_ROLL:
         #     self.z_angle = -Heli.MAX_ANGLE_ROLL
         # else:
-        degrees = float(-float(value) / self.SMOOTH_CONSTANT) * float(self.RATIO_TO_DEGREES)
+        degrees = float(-float(value) / self.ROLL_SMOOTH) * float(self.RATIO_TO_DEGREES)
         rot_angle = radians(degrees)
         self._rotate(rot_angle, Z_AXIS)
         
@@ -266,7 +272,7 @@ class GyroHelicopter(Heli):
         # elif self.rot_angle < -Heli.MAX_ANGLE_GIER:
         #     self.rot_angle = -Heli.MAX_ANGLE_GIER
         
-        degrees = float(-float(value) / self.SMOOTH_CONSTANT) * float(self.RATIO_TO_DEGREES)
+        degrees = float(-float(value) / self.GIER_SMOOTH) * float(self.RATIO_TO_DEGREES)
         rot_angle = radians(degrees)
         self._rotate_global(rot_angle, Y_AXIS)
         

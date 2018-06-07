@@ -11,7 +11,7 @@ class UDPReceiver:
         while True:
             data, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
             # print data
-            d = json.loads(data)
-            print d['x']
+            # d = json.loads(data)
+            print data
             
 receiver = UDPReceiver(4000)
