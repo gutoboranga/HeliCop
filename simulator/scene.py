@@ -215,9 +215,9 @@ class GyroHelicopter(Heli):
     # e o grau em degrees. quando value == 14, significa 90 degrees
     RATIO_TO_DEGREES = 6.4285
     
-    NICK_SMOOTH = 12
-    ROLL_SMOOTH = 12
-    GIER_SMOOTH = 16
+    NICK_SMOOTH = 26
+    ROLL_SMOOTH = 18
+    GIER_SMOOTH = 40
     
     currentX = 0
     currentY = 0
@@ -242,8 +242,6 @@ class GyroHelicopter(Heli):
     def nick(self, value):
         degrees = float(float(value) / self.NICK_SMOOTH) * float(self.RATIO_TO_DEGREES)
         rot_angle = radians(degrees)
-        print(value)
-        
         # if self.x_angle > Heli.MAX_ANGLE_NICK:
         #     self.x_angle = Heli.MAX_ANGLE_NICK
         # elif self.x_angle < -Heli.MAX_ANGLE_NICK:

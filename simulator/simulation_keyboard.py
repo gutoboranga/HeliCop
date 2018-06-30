@@ -12,7 +12,6 @@ import itertools
 
 from scene import Scene
 from controller import Controller
-from gyro_controller import GyroController
 from camera import CameraType
 import trafo
 
@@ -57,8 +56,8 @@ def initScene():
     scene = Scene(FOV, aspect)
     
     scene.addCamera(CameraType.THIRD_PERSON)
-    # scene.addCamera(CameraType.FIX)
-    # scene.addCamera(CameraType.FOLLOW)
+    scene.addCamera(CameraType.FIX)
+    scene.addCamera(CameraType.FOLLOW)
     
     scene.addSkybox(skybox_01_info)
     scene.addSkybox(skybox_02_info)
@@ -83,18 +82,16 @@ def main():
     glutInit(sys.argv)
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH)
     glutInitWindowSize(WIDTH, HEIGHT)
-    glutCreateWindow("Crazy Helicopter Pilot Simulator")
+    glutCreateWindow("Skybox")
 
     initScene()
-    # controller = Controller(scene)
-    controller = GyroController(scene)
+    controller = Controller(scene)
 
     glutDisplayFunc(display)     #register display function
     glutReshapeFunc(reshape)     #register reshape function
-    # glutKeyboardFunc(controller.handleKeyDown) #register keyboard function
-    # glutKeyboardUpFunc(controller.handleKeyUp) #register keyboard function
+    glutKeyboardFunc(controller.handleKeyDown) #register keyboard function
+    glutKeyboardUpFunc(controller.handleKeyUp) #register keyboard function
     glutTimerFunc(TIMER_MS, animation, 0)
-    glutIdleFunc(controller.idle)
 
     initGL(WIDTH,HEIGHT) #initialize OpenGL state
     glutMainLoop() #start even processing

@@ -12,7 +12,7 @@ class Camera(object):
     INIT_CENTER = [0, 0, -1]
     INIT_UP = [0, 1, 0]
     
-    def __init__(self, *information):     
+    def __init__(self, *information):
         param_count = len(information)
         self.e = information[0] if param_count else Camera.INIT_EYE
         self.c = information[1] if param_count else Camera.INIT_CENTER
@@ -33,7 +33,7 @@ class ThirdPersonCamera(Camera):
         if param_count == 0:
             self.third_person_dir = array(ThirdPersonCamera.INIT_DIR)
             self.third_person_dist = float(ThirdPersonCamera.INIT_DIST)
-            Camera.__init__(self) 
+            Camera.__init__(self)
         if param_count == 2:
             self.third_person_dir = array(information[0])
             self.third_person_dist = float(information[1])
@@ -41,11 +41,11 @@ class ThirdPersonCamera(Camera):
         if param_count == 3:
             self.third_person_dir = array(ThirdPersonCamera.INIT_DIR)
             self.third_person_dist = float(ThirdPersonCamera.INIT_DIST)
-            Camera.__init__(self, *information) 
+            Camera.__init__(self, *information)
         if param_count == 5:
             self.third_person_dir = array(ThirdPersonCamera.INIT_DIR)
             self.third_person_dist = float(ThirdPersonCamera.INIT_DIST)
-            Camera.__init__(self, *information[:3]) 
+            Camera.__init__(self, *information[:3])
 
     def update(self, helipos, orientation):
         self.c = helipos

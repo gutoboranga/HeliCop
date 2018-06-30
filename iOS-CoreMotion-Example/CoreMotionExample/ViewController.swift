@@ -14,8 +14,10 @@ class ViewController: UIViewController {
 
     // Gyroscope stuff
     let THRESHOLD = 0.01
+    let MAX_ANGLE = 18
+    
     let motionManager = CMMotionManager()
-	var timer: Timer!
+    var timer: Timer!
     
     var xPosition: Double = 0;
     var yPosition: Double = 0;
@@ -24,8 +26,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var xLabel: UILabel!
     @IBOutlet weak var yLabel: UILabel!
     @IBOutlet weak var zLabel: UILabel!
-	
-    // UPD connection stuff
+    
     @IBOutlet weak var ipTextField: UITextField!
     
     let port = 4000
@@ -34,7 +35,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
 		super.viewDidLoad()
         
-        self.connect(self)
+//        self.connect(self)
 	}
     
     override func viewDidAppear(_ animated: Bool) {
@@ -45,7 +46,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func connect(_ sender: Any) {
-        client = UDPClient(address: self.ipTextField.text!, port: Int32(port))
+//        client = UDPClient(address: self.ipTextField.text!, port: Int32(port))
     }
     
     func send(text: String) {
@@ -75,23 +76,24 @@ class ViewController: UIViewController {
     
     func update() {
         if let data = motionManager.deviceMotion {
+//            send(text: createMessage())
             var moved = false
-            
+
             if (abs(data.rotationRate.x) > THRESHOLD) {
                 setX(x: (self.xPosition + data.rotationRate.x))
                 moved = true
             }
-            
+
             if (abs(data.rotationRate.y) > THRESHOLD) {
                 setY(y: (self.yPosition + data.rotationRate.y))
                 moved = true
             }
-            
+
             if (abs(data.rotationRate.z) > THRESHOLD) {
                 setZ(z: (self.zPosition + data.rotationRate.z))
                 moved = true
             }
-            
+
             // se moveu em algum eixo, envia msg pro socket
             if (moved) {
                 send(text: createMessage())

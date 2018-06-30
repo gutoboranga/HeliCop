@@ -1,6 +1,8 @@
 install:
 	pip install -r requirements.txt
 	
-simulate:
-	cd simulator; python main.py
+simulate-mobile:
+	cd simulator; python run.py
 	
+simulate-keyboard:
+	cd simulator; python simulation_keyboard.py

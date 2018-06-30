@@ -5,13 +5,11 @@ ttime = 0
 PORT = 4000
 
 class GyroController(object):
-    def __init__(self, scene):
+    def __init__(self, scene, sock):
         self.scene = scene
         self.pressedKeys = set()
         
-        self.sock = socket.socket(socket.AF_INET, # Internet
-                             socket.SOCK_DGRAM) # UDP
-        self.sock.bind(("", PORT))
+        self.sock = sock
 
     def handleKeyDown(self, key, x, y):
         if key == chr(27):
@@ -77,10 +75,10 @@ class GyroController(object):
         
         return x, y, z
         
-    def idle(self):
-        data = self.receive_from_socket()
-        
-        x, y, z = self.parse_json(data)
-        
-        # self.scene.helicopter.nick(x)
-        self.scene.helicopter.move(x, y, z)
+    def get_gyro_data(self):
+        while True:
+            data = self.receive_from_socket()
+            
+            x, y, z = self.parse_json(data)
+            
+            self.scene.helicopter.move(x, y, z)
