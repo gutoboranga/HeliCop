@@ -13,11 +13,12 @@ import SwiftSocket
 class ViewController: UIViewController {
 
     // Gyroscope stuff
-    let THRESHOLD = 0.01
+    let THRESHOLD = 0.02
+    let THRESHOLD_X = 0.02
     let MAX_ANGLE = 18
     
     let motionManager = CMMotionManager()
-    let altimeter = CMAltimeter()
+//    let altimeter = CMAltimeter()
     
     var timer: Timer!
     
@@ -88,7 +89,7 @@ class ViewController: UIViewController {
 //            send(text: createMessage())
             var moved = false
 
-            if (abs(data.rotationRate.x) > THRESHOLD) {
+            if (abs(data.rotationRate.x) > THRESHOLD_X) {
                 setX(x: (self.xPosition + data.rotationRate.x))
                 moved = true
             }
@@ -105,8 +106,10 @@ class ViewController: UIViewController {
 
             // se moveu em algum eixo, envia msg pro socket
             if (moved) {
-                send(text: createMessage())
-//                print(createMessage())
+                let message = createMessage()
+                send(text: message)
+                
+                print(message)
             }
         }
     }

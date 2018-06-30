@@ -25,6 +25,8 @@ aspect = WIDTH/float(HEIGHT)
 
 models = []
 
+scored = [False, False, False]
+
 skybox_01_info = ('data/skybox/01/', '.png')
 skybox_02_info = ('data/skybox/02/', '.png')
 skybox_03_info = ('data/skybox/03/', '.tga')
@@ -56,10 +58,18 @@ def initGL(width, height):
     glEnable(GL_LIGHTING)
 
 def checkContact():
-    if scene.helicopter.position[0] >= scene.simpleObjects[0].position[0] - 1 and scene.helicopter.position[0] <= scene.simpleObjects[0].position[0] + 1:
-        if scene.helicopter.position[1] >= scene.simpleObjects[0].position[1] - 1 and scene.helicopter.position[1] <= scene.simpleObjects[0].position[1] + 1:
-            if scene.helicopter.position[2] >= scene.simpleObjects[0].position[2] - 1 and scene.helicopter.position[2] <= scene.simpleObjects[0].position[2] + 1:
-                print("a22jak")
+    # checa se bateu na parede do fundo
+    if scene.helicopter.position[2] >= scene.skybox.bb[1][2] - 1:
+        print("-- Fim do experimento --")
+        print("Total de helicopteros acertados: {}".format(sum(scored)))
+        exit(0)
+    
+    # checa se bateu nos helicópteros no caminho
+    for i in range(0, len(scored)):
+        if scene.helicopter.position[0] >= scene.simpleObjects[i].position[0] - 1 and scene.helicopter.position[0] <= scene.simpleObjects[i].position[0] + 1:
+            if scene.helicopter.position[1] >= scene.simpleObjects[i].position[1] - 1 and scene.helicopter.position[1] <= scene.simpleObjects[i].position[1] + 1:
+                if scene.helicopter.position[2] >= scene.simpleObjects[i].position[2] - 1 and scene.helicopter.position[2] <= scene.simpleObjects[i].position[2] + 1:
+                    scored[i] = True
 
 def initScene():
     global scene
@@ -69,12 +79,15 @@ def initScene():
     scene.addCamera(CameraType.FIX)
     scene.addCamera(CameraType.FOLLOW)
 
-    scene.addSkybox(skybox_01_info)
-    scene.addSkybox(skybox_02_info)
     scene.addSkybox(skybox_03_info)
-    scene.addSimpleObject(obt_info)
+    scene.addSkybox(skybox_02_info)
+    scene.addSkybox(skybox_01_info)
+    
+    scene.addSimpleObject(obt_info, position=[-2,-7,-15])
+    scene.addSimpleObject(obt_info, position=[2,0,15])
+    scene.addSimpleObject(obt_info, position=[0,7,45])
 
-    scene.addHelicopter(helicopter_info)
+    scene.addHelicopter(helicopter_info, [0,-9.65,-42])
 
 def animation(value):
     scene.helicopter.doRotor()
@@ -94,7 +107,7 @@ def main():
     glutInit(sys.argv)
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH)
     glutInitWindowSize(WIDTH, HEIGHT)
-    glutCreateWindow("Skybox")
+    glutCreateWindow("Crazy Helicopter Pilot Simulator")
     initScene()
     controller = Controller(scene)
 
@@ -109,3 +122,4 @@ def main():
 
 if __name__ == "__main__":
    main()
+   print(scored)

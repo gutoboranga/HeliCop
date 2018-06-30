@@ -51,17 +51,17 @@ def receive_message(sock):
             connected = True
     
     print("> did connect")
-    hide_connection_screen()
+    # hide_connection_screen()
     return True
     
 
 def wait_for_connection(sock):
-    
+    return receive_message(sock)
     
     # show_connection_screen()
-    start_new_thread(show_connection_screen, ())
+    # start_new_thread(show_connection_screen, ())
     
-    receive_message(sock)
+    
     
     # start_new_thread(receive_message, (sock))
     

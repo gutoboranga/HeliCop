@@ -32,9 +32,10 @@ DEFAULT_ORIENTATION = identity(4)
 
 
 class SimpleObjObject(object):
-    def __init__(self, path, filename):
-        self.position = [45,-33,10]
+    def __init__(self, path, filename, position=[45,-33,10]):
+        self.position = position
         self.orientation = DEFAULT_ORIENTATION
+        
         obj_data = objloader.ReadObj(path, filename)
         mat_data = objloader.SimpleObjData(obj_data)
         self.model = Model3D(mat_data)
@@ -53,9 +54,9 @@ class Heli(object):
     ROTOR_BACK = ['500-D_Blanco']
     HUBEL = ['500-D_Rojo']
 
-    GIER_ANGLE = radians(.6)
-    ROLL_ANGLE = radians(.6)
-    NICK_ANGLE = radians(.6)
+    GIER_ANGLE = radians(1.0)
+    ROLL_ANGLE = radians(2.0)
+    NICK_ANGLE = radians(1.0)
     MAX_ANGLE_GIER = radians(5)
     MAX_ANGLE_ROLL = radians(45)
     MAX_ANGLE_NICK = radians(60)
@@ -65,9 +66,9 @@ class Heli(object):
     WEIGHT = 1000.0
     MAX_POWER = 18000.0
 
-    def __init__(self, path, filename):
+    def __init__(self, path, filename, position=[0,0,0]):
         self.orientation = DEFAULT_ORIENTATION
-        self.position = [0,0,0]
+        self.position = position
         self.up = [0,1,0]
         self.dir = [0,0,1]
 
@@ -494,13 +495,17 @@ class TexturedQuad(object):
 
 
 class Skybox(object):
-    D = 100.0 # war mal 2.5
-    FRONT = [[D,-D,-D], [-D,-D,-D], [-D,D,-D], [D,D,-D]]
-    LEFT = [[-D,-D,-D], [-D,-D,D], [-D,D,D],[-D,D,-D]]
-    BACK = [[-D,-D,D], [D,-D,D], [D,D,D], [-D,D,D]]
-    RIGHT = [[D,-D,D], [D,-D,-D], [D,D,-D], [D,D,D]]
-    UP = [[D,D,D], [D,D,-D], [-D,D,-D], [-D,D,D]]
-    DOWN = [[-D,-D,-D], [D,-D,-D], [D,-D,D], [-D,-D,D]]
+    D = 10.0 # war mal 2.5
+    E = 50.0 # war mal 2.5
+    
+    FRONT = [[D,-D,-E], [-D,-D,-E], [-D,D,-E], [D,D,-E]]
+    BACK = [[-D,-D,E], [D,-D,E], [D,D,E], [-D,D,E]]
+    
+    LEFT = [[-D,-D,-E], [-D,-D,E], [-D,D,E],[-D,D,-E]]
+    RIGHT = [[D,-D,E], [D,-D,-E], [D,D,-E], [D,D,E]]
+    
+    UP = [[D,D,E], [D,D,-E], [-D,D,-E], [-D,D,E]]
+    DOWN = [[-D,-D,-E], [D,-D,-E], [D,-D,E], [-D,-D,E]]
 
     def draw(self, camera, projection):
         for quad in self.skyboxquads:
@@ -508,7 +513,8 @@ class Skybox(object):
 
     def __init__(self, path, ext):
         D = Skybox.D
-        self.bb = [[-D,-D,-D],[D,D,D]]
+        E = Skybox.E
+        self.bb = [[-D,-D,-E],[D,D,E]]
         self.skyboxquads = []
         self.skyboxquads.append(TexturedQuad(path+'skybox_front'+ext, Skybox.FRONT))
         self.skyboxquads.append(TexturedQuad(path+'skybox_back'+ext, Skybox.BACK))
@@ -542,8 +548,8 @@ class Scene(object):
         if position:
             self.helicopter.position = position
 
-    def addSimpleObject(self, obj_info):
-        simpleObj = SimpleObjObject(*obj_info)
+    def addSimpleObject(self, obj_info, position=None):
+        simpleObj = SimpleObjObject(*obj_info, position=position)
         self.simpleObjects.append(simpleObj)
 
     def addSkybox(self, skybox_info):
