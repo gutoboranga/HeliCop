@@ -31,7 +31,7 @@ skybox_01_info = ('data/skybox/01/', '.png')
 skybox_02_info = ('data/skybox/02/', '.png')
 skybox_03_info = ('data/skybox/03/', '.tga')
 helicopter_info = ('data/helicopter/','HELICOPTER500D.obj')
-obt_info = ('data/helicopter1/','HELICOPTER500D.obj')
+obt_info = ('data/helicopter_2/','HELICOPTER500D.obj')
 
 def display():
     glClearColor(1.0, 1.0, 1.0, 1.0)
