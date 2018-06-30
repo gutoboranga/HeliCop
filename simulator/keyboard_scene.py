@@ -33,7 +33,7 @@ DEFAULT_ORIENTATION = identity(4)
 
 class SimpleObjObject(object):
     def __init__(self, path, filename):
-        self.position = [0,0,0]
+        self.position = [45,-33,10]
         self.orientation = DEFAULT_ORIENTATION
         obj_data = objloader.ReadObj(path, filename)
         mat_data = objloader.SimpleObjData(obj_data)
@@ -44,7 +44,8 @@ class SimpleObjObject(object):
         mvMat = dot(mvMat, trafo.translationMatrix(*self.position))
         mvMat = dot(mvMat, self.orientation)
         self.model.draw(camera, projection, mvMat)
-        
+
+
 class Heli(object):
     BODY = ['500-D_Luz_Verde', '500-D_Lineas', '500-D_Luz_Roja', '500-D_Negro', '500-D___500-D', '500-D_Matricula']
     GLASS = ['500-D_Cristal_no', '500-D_Cristal_Ve']
@@ -58,7 +59,7 @@ class Heli(object):
     MAX_ANGLE_GIER = radians(5)
     MAX_ANGLE_ROLL = radians(45)
     MAX_ANGLE_NICK = radians(60)
-    
+
     PITCH_STEP = 200.0
     SPEED = 0.2
     WEIGHT = 1000.0
@@ -69,14 +70,14 @@ class Heli(object):
         self.position = [0,0,0]
         self.up = [0,1,0]
         self.dir = [0,0,1]
-        
+
         self.x_angle = 0.0
         self.z_angle = 0.0
         self.rot_angle = 0.0
 
         self.lift = FORCE_OF_GRAVITY
         self.liftPower = FORCE_OF_GRAVITY * 10000
-        
+
         self.can_move_up = True
         self.can_move_down = True
         self.can_move_forward = True
@@ -103,7 +104,7 @@ class Heli(object):
         self.models.append(Model3D(mat_nose))
         self.models.append(Model3D(mat_body))
         self.models.append(Model3D(mat_glass))
-        
+
     def draw(self, camera, projection):
         camera.update(self.position, self.orientation)
 
@@ -113,10 +114,10 @@ class Heli(object):
 
         self.rotor.draw(camera, projection, mvMat)
         self.rotor_back.draw(camera, projection, mvMat)
-        
+
         for model in self.models:
             model.draw(camera, projection, mvMat)
-        
+
     def _rotate(self, rot_angle, axis, curr_angle=None):
         self.orientation = dot(self.orientation, trafo.rotationMatrix(rot_angle, axis))
 
@@ -142,7 +143,7 @@ class Heli(object):
             self.z_angle = -Heli.MAX_ANGLE_ROLL
         else:
             self._rotate(rot_angle, Z_AXIS)
-        
+
     def gier(self, right):
         self.rot_angle += Heli.GIER_ANGLE if right else -Heli.GIER_ANGLE
         if self.rot_angle > Heli.MAX_ANGLE_GIER:
@@ -178,7 +179,7 @@ class Heli(object):
         gravity = array(GRAVITY)
         pos = array(self.position)
         self.dir = weighted_up + gravity
-        
+
         if right_blocked:
             self.dir[0] = 0
         if left_blocked:
@@ -191,7 +192,7 @@ class Heli(object):
 
     def movesRight(self, weighted_up):
         return weighted_up[0] > 0
-    
+
     def movesUp(self, weighted_up):
         return weighted_up[1] > FORCE_OF_GRAVITY
 
@@ -203,7 +204,7 @@ class Heli(object):
         uplength = sqrt(dot(up, up))
         self.up = up / uplength
         return up
-        
+
     def doRotor(self):
         fac = self.lift * 15
         self.rotor.angle = (self.rotor.angle + fac) % 360
@@ -215,27 +216,27 @@ class GyroHelicopter(Heli):
     # e o grau em degrees. quando value == 14, significa 90 degrees
     RATIO_TO_DEGREES = 6.4285
     SMOOTH_CONSTANT = 12
-    
+
     currentX = 0
     currentY = 0
     currentZ = 0
-    
+
     def move(self, x, y, z):
-        
+
         if x != self.currentX:
             self.currentX = x
             self.nick(self.currentX)
-            
+
         if y != self.currentY:
             self.currentY = y
             self.roll(self.currentY)
-            
+
         if z != self.currentZ:
             self.currentZ = z
             self.gier(self.currentZ)
-        
+
         # print(x, y, z)
-    
+
     def nick(self, value):
         # self.x_angle += rot_angle
         # if self.x_angle > Heli.MAX_ANGLE_NICK:
@@ -246,7 +247,7 @@ class GyroHelicopter(Heli):
         degrees = float(float(value) / self.SMOOTH_CONSTANT) * float(self.RATIO_TO_DEGREES)
         rot_angle = radians(degrees)
         self._rotate(rot_angle, X_AXIS)
-        
+
     def roll(self, value):
         # rot_angle = Heli.ROLL_ANGLE if right else -Heli.ROLL_ANGLE
         # self.z_angle += rot_angle
@@ -258,35 +259,35 @@ class GyroHelicopter(Heli):
         degrees = float(-float(value) / self.SMOOTH_CONSTANT) * float(self.RATIO_TO_DEGREES)
         rot_angle = radians(degrees)
         self._rotate(rot_angle, Z_AXIS)
-        
+
     def gier(self, value):
         # self.rot_angle += Heli.GIER_ANGLE if right else -Heli.GIER_ANGLE
         # if self.rot_angle > Heli.MAX_ANGLE_GIER:
         #     self.rot_angle = Heli.MAX_ANGLE_GIER
         # elif self.rot_angle < -Heli.MAX_ANGLE_GIER:
         #     self.rot_angle = -Heli.MAX_ANGLE_GIER
-        
+
         degrees = float(-float(value) / self.SMOOTH_CONSTANT) * float(self.RATIO_TO_DEGREES)
         rot_angle = radians(degrees)
         self._rotate_global(rot_angle, Y_AXIS)
-        
+
     # def fly(self):
     #     pass
-    
+
 
 class Model3D(object):
     _VARNAME_LIST =  ["mvMatrix", "mvpMatrix", "normalMatrix", "diffuseColor", "ambientColor", "specularColor", "alpha", "shininess","hasTexture",  "lightPosition"]
-    
+
     def __init__(self, mat_obj, rotation_axis=Y_AXIS):
         self.mat_obj = mat_obj
         self.face_groups = mat_obj.face_groups
         self.center = mat_obj.center
         self.materials = mat_obj.materials
-        
+
         self.orientation = DEFAULT_ORIENTATION
         self.rotation_axis = rotation_axis
         self.angle = 0
-                
+
         self.program = self._init_shader("textureshader")
         self.shadersender = sender.Sender(self.program, Model3D._VARNAME_LIST)
         self._load_materials(self.materials)
@@ -303,14 +304,14 @@ class Model3D(object):
                 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
                 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
                 glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, im.size[0], im.size[1], 0, GL_RGB, GL_UNSIGNED_BYTE, array(im)[::-1,:].tostring())
-        
+
     def _init_shader(self, shadername):
         shaderpath = shaderdir + shadername
         vertexShader = open(shaderpath + vert_ext).read()
         fragmentShader = open(shaderpath + frag_ext).read()
         return compileProgram(compileShader(vertexShader, GL_VERTEX_SHADER),
                                      compileShader(fragmentShader, GL_FRAGMENT_SHADER))
-        
+
 
     def draw(self, camera, projection, mvMat):
         glEnableClientState(GL_VERTEX_ARRAY)
@@ -321,7 +322,7 @@ class Model3D(object):
 
         for face_group in self.face_groups.itervalues():
             material = self.materials[face_group.material_name]
-            
+
             vb = self.mat_obj.getVBO(material.name)
             if material.alpha < 1.0:
                 glEnable(GL_BLEND) ## for opacity
@@ -331,11 +332,11 @@ class Model3D(object):
             modelview = dot(modelview, trafo.translationMatrix(self.center[0], self.center[1], self.center[2]))
             modelview = dot(modelview, dot(trafo.rotationMatrix(radians(self.angle), self.rotation_axis), self.orientation))
             modelview = dot(modelview, trafo.translationMatrix(-self.center[0], -self.center[1], -self.center[2]))
-            
+
             normalMat = linalg.inv(modelview[0:3,0:3]).T
 
             mvpMat = dot(projection, modelview)
-            
+
             glUseProgram(self.program)
 
             s = self.shadersender
@@ -349,13 +350,13 @@ class Model3D(object):
             s.sendValue("alpha", material.alpha)
             s.sendVec3("lightPosition", [0,70.0,70.0])
             s.sendValue("hasTexture", material.has_texture())
-            
+
             vb.bind()
 
             glVertexPointer(3, GL_FLOAT, 36, vb)
             glTexCoordPointer(3, GL_FLOAT, 36, vb + 12)
             glNormalPointer(GL_FLOAT, 36, vb + 24)
-                
+
             glBindTexture(GL_TEXTURE_2D, material.texture_id)
 
             glDrawArrays(GL_TRIANGLES, 0, len(vb) / 3)
@@ -378,7 +379,7 @@ class Model3D(object):
         self.face_groups.clear()
 
 
-            
+
 class Camera(object):
     INIT_EYE = [0, 0, 2]
     INIT_CENTER = [0, 0, -1]
@@ -388,10 +389,10 @@ class Camera(object):
     INIT_DIST = 3.0
 
     FIX_CAM, FOLLOW_CAM, THIRD_PERSON_CAM = 0, 1, 2
-    
+
     def __init__(self, cam_type, *information):
         self.cam_type = cam_type
-        
+
         param_count = len(information)
 
         if param_count in (0,2):
@@ -413,7 +414,7 @@ class Camera(object):
 
     def getLookAt(self):
         return trafo.lookAtMatrix(self.e[0],self.e[1],self.e[2], self.c[0], self.c[1], self.c[2], self.up[0], self.up[1], self.up[2])
-        
+
     def update(self, helipos, orientation):
         if self.cam_type == Camera.FIX_CAM:
             return
@@ -427,11 +428,11 @@ class Camera(object):
 
 
 
-       
+
 class TexturedQuad(object):
     _VARNAME_LIST = ["mvMatrix", "mvpMatrix"]
     _texture_coords = [[0,0], [1,0], [1,1], [0,1]]
-    
+
     def __init__(self, imgpath, vertex_coords):
         im = Image.open(imgpath).convert('RGBA')
         self.image = array(im)[::-1, :].tostring()
@@ -484,7 +485,7 @@ class TexturedQuad(object):
 
         glBindTexture(GL_TEXTURE_2D, self.texture_id)
         glDrawArrays(GL_QUADS, 0, len(self.data))
-        
+
         vb.unbind()
 
         glDisableClientState(GL_VERTEX_ARRAY)
@@ -500,11 +501,11 @@ class Skybox(object):
     RIGHT = [[D,-D,D], [D,-D,-D], [D,D,-D], [D,D,D]]
     UP = [[D,D,D], [D,D,-D], [-D,D,-D], [-D,D,D]]
     DOWN = [[-D,-D,-D], [D,-D,-D], [D,-D,D], [-D,-D,D]]
-    
+
     def draw(self, camera, projection):
         for quad in self.skyboxquads:
             quad.draw(camera, projection)
-    
+
     def __init__(self, path, ext):
         D = Skybox.D
         self.bb = [[-D,-D,-D],[D,D,D]]
@@ -526,7 +527,7 @@ class Scene(object):
         self.skyboxes = []
         self. skycycle = None
         self.updateProjection(fov, aspect)
-        
+
     def addCamera(self, cam_type, *information):
         if cam_type == CameraType.FIX:
             camera = FixCamera(*information)
@@ -540,7 +541,7 @@ class Scene(object):
         self.helicopter = Heli(*helicopter_info)
         if position:
             self.helicopter.position = position
-            
+
     def addSimpleObject(self, obj_info):
         simpleObj = SimpleObjObject(*obj_info)
         self.simpleObjects.append(simpleObj)
@@ -556,14 +557,14 @@ class Scene(object):
 
     def switchSky(self):
         self.skybox = self.skycycle.next()
-        
+
     def _heliIntersectSkybox(self):
         heli_center = self.helicopter.position
 
         intersectX_right = False if heli_center[0] < 0 else True
         intersectY_top = False if heli_center[1] < 0 else True
         intersectZ_front = False if heli_center[2] < 0 else True
-        
+
         bb = self.skybox.bb
         #both are lists like [x,y,z]
         curr_min_dist_to_object = [min(abs(x[0] - x[1]), abs(x[0] - x[2])) for x in zip(heli_center, bb[0],bb[1])]
@@ -632,7 +633,3 @@ class Scene(object):
             self.helicopter.draw(self.camera, self.projection)
         for simpleObj in self.simpleObjects:
             simpleObj.draw(self.camera, self.projection)
-
-    
-        
-        
