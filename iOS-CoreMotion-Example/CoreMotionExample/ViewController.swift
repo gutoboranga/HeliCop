@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     let MAX_ANGLE = 18
     
     let motionManager = CMMotionManager()
+    let altimeter = CMAltimeter()
+    
     var timer: Timer!
     
     var xPosition: Double = 0;
@@ -34,8 +36,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
 		super.viewDidLoad()
-        
-//        self.connect(self)
 	}
     
     override func viewDidAppear(_ animated: Bool) {
@@ -43,10 +43,18 @@ class ViewController: UIViewController {
         motionManager.startDeviceMotionUpdates(to: OperationQueue.current!) { (data, error) in
             self.update()
         }
+        
+//        altimeter.startRelativeAltitudeUpdates(to: OperationQueue.current!) { (data, error) in
+//            if let altitudeData = data {
+//                let relativeAltitude = altitudeData.relativeAltitude
+//
+//                print(relativeAltitude)
+//            }
+//        }
     }
     
     @IBAction func connect(_ sender: Any) {
-//        client = UDPClient(address: self.ipTextField.text!, port: Int32(port))
+        client = UDPClient(address: self.ipTextField.text!, port: Int32(port))
     }
     
     func send(text: String) {
@@ -76,6 +84,7 @@ class ViewController: UIViewController {
     
     func update() {
         if let data = motionManager.deviceMotion {
+
 //            send(text: createMessage())
             var moved = false
 
@@ -97,7 +106,7 @@ class ViewController: UIViewController {
             // se moveu em algum eixo, envia msg pro socket
             if (moved) {
                 send(text: createMessage())
-                print(createMessage())
+//                print(createMessage())
             }
         }
     }

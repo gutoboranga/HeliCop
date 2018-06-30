@@ -24,6 +24,7 @@ TIMER_MS = 10
 aspect = WIDTH/float(HEIGHT)
 
 models = []
+
 skybox_01_info = ('data/skybox/01/', '.png')
 skybox_02_info = ('data/skybox/02/', '.png')
 skybox_03_info = ('data/skybox/03/', '.tga')
