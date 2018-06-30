@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import socket
 from connection import wait_for_connection, create_socket
-from simulation import main as start_simulation
+from simulation_mobile import main as start_simulation
 
 
 def main():

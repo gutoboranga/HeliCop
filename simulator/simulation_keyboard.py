@@ -10,7 +10,7 @@ from math import *
 
 import itertools
 
-from scene import Scene
+from keyboard_scene import Scene
 from controller import Controller
 from camera import CameraType
 import trafo
