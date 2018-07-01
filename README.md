@@ -15,7 +15,7 @@ The 3D helicopter, along with its physics model to create the simulation were bu
 
 ## Install
 
-To make the python dependencies, run:
+To install python dependencies, run:
 
 ```
 make install
@@ -33,7 +33,7 @@ make simulate-keyboard
 
 ### Mobile controller
 
-To run the mobile controller, open the XCode project `iOS-CoreMotion-Example/CoreMotionExample.xcodeproj` and run it on an iPhone with gyroscope.
+To run using the mobile to control, open the XCode project `mobile/Crazy\ Helicopter\ Pilot\ Simulator.xcodeproj` and run it on an iPhone with gyroscope.
 
 Afterwards, run on the desktop:
 
@@ -41,6 +41,6 @@ Afterwards, run on the desktop:
 make simulate-mobile
 ```
 
-Then, insert your computer's IP into the app and follow the instructions to control the helicopter with the movements of your hand, captured by the phone.
+Then, insert your computer's IP into the mobile app and follow the instructions to control the helicopter with the movements of your hand, captured by the phone.
 
 ### Have fun :)
