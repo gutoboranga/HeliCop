@@ -73,12 +73,15 @@ class GyroController(object):
         y = parsed['y']
         z = parsed['z']
         
-        return x, y, z
+        up = parsed['up']
+        should_go_up = (up == 'True')
+        
+        return x, y, z, should_go_up
         
     def get_gyro_data(self):
         while True:
             data = self.receive_from_socket()
             
-            x, y, z = self.parse_json(data)
+            x, y, z, up = self.parse_json(data)
             
-            self.scene.helicopter.move(x, y, z)
+            self.scene.helicopter.move(x, y, z, up)

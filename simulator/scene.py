@@ -223,7 +223,7 @@ class GyroHelicopter(Heli):
     currentY = 0
     currentZ = 0
     
-    def move(self, x, y, z):
+    def move(self, x, y, z, up):
         
         if x != self.currentX:
             self.currentX = x
@@ -236,6 +236,9 @@ class GyroHelicopter(Heli):
         if z != self.currentZ:
             self.currentZ = z
             # self.gier(self.currentZ)
+            
+        print(up)
+        self.pitch(up)
         
         # print(x, y, z)
     

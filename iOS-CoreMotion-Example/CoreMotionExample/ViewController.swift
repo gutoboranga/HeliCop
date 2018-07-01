@@ -19,12 +19,15 @@ class ViewController: UIViewController {
     
     let motionManager = CMMotionManager()
 //    let altimeter = CMAltimeter()
+//    var timer: Timer!
     
-    var timer: Timer!
+    var up: Bool = false;
     
     var xPosition: Double = 0;
     var yPosition: Double = 0;
     var zPosition: Double = 0;
+    
+    @IBOutlet weak var upButton: UIButton!
     
     @IBOutlet weak var xLabel: UILabel!
     @IBOutlet weak var yLabel: UILabel!
@@ -37,6 +40,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
 		super.viewDidLoad()
+        
+        upButton.addTarget(self, action: #selector(buttonDown), for: .touchDown)
+        upButton.addTarget(self, action: #selector(buttonUp), for: [.touchUpInside, .touchUpOutside])
 	}
     
     override func viewDidAppear(_ animated: Bool) {
@@ -78,6 +84,9 @@ class ViewController: UIViewController {
         message += ", "
 
         message += "\"z\": " + String(zPosition)
+        message += ", "
+        
+        message += "\"up\": " + "\"" + mapBoolToString(b: up) + "\""
         message += " }"
 
         return message
@@ -101,6 +110,11 @@ class ViewController: UIViewController {
 
             if (abs(data.rotationRate.z) > THRESHOLD) {
                 setZ(z: (self.zPosition + data.rotationRate.z))
+                moved = true
+            }
+            
+            // se botão para acelerar para cima estiver pressionado
+            if (up) {
                 moved = true
             }
 
@@ -127,6 +141,23 @@ class ViewController: UIViewController {
     func setZ(z: Double) {
         self.zPosition = z;
         zLabel.text = String(self.zPosition)
+    }
+    
+    @objc func buttonDown(_ sender: UIButton) {
+        up = true
+        print("True")
+    }
+    
+    @objc func buttonUp(_ sender: UIButton) {
+        up = false
+        print("False")
+    }
+    
+    func mapBoolToString(b: Bool) -> String {
+        if (b) {
+            return "True"
+        }
+        return "False"
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
