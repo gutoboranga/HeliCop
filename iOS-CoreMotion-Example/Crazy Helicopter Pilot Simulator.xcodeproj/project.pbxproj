@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A1F3FB720E85E7B008E7D29 /* SwiftSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AA3EFBB20C0D10600E3D50F /* SwiftSocket.framework */; };
 		4A80329B20E0532B0068D892 /* IpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A80329A20E0532B0068D892 /* IpViewController.swift */; };
-		4AA3EFBF20C0D6F700E3D50F /* SwiftSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AA3EFBB20C0D10600E3D50F /* SwiftSocket.framework */; };
 		4ACAC7DD20E7006500E102EE /* OkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACAC7DC20E7006500E102EE /* OkViewController.swift */; };
 		6D4BABE01C5130A60042ADA0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D4BABDF1C5130A60042ADA0 /* AppDelegate.swift */; };
 		6D4BABE21C5130A60042ADA0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D4BABE11C5130A60042ADA0 /* ViewController.swift */; };
@@ -21,7 +21,7 @@
 		4A80329A20E0532B0068D892 /* IpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpViewController.swift; sourceTree = "<group>"; };
 		4AA3EFBB20C0D10600E3D50F /* SwiftSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftSocket.framework; path = Carthage/Build/iOS/SwiftSocket.framework; sourceTree = "<group>"; };
 		4ACAC7DC20E7006500E102EE /* OkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkViewController.swift; sourceTree = "<group>"; };
-		6D4BABDC1C5130A60042ADA0 /* CoreMotionExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreMotionExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D4BABDC1C5130A60042ADA0 /* Crazy Helicopter Pilot Simulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Crazy Helicopter Pilot Simulator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D4BABDF1C5130A60042ADA0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6D4BABE11C5130A60042ADA0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6D4BABE41C5130A60042ADA0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -35,7 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4AA3EFBF20C0D6F700E3D50F /* SwiftSocket.framework in Frameworks */,
+				4A1F3FB720E85E7B008E7D29 /* SwiftSocket.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,7 +98,7 @@
 		6D4BABDD1C5130A60042ADA0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6D4BABDC1C5130A60042ADA0 /* CoreMotionExample.app */,
+				6D4BABDC1C5130A60042ADA0 /* Crazy Helicopter Pilot Simulator.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -117,9 +117,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6D4BABDB1C5130A60042ADA0 /* CoreMotionExample */ = {
+		6D4BABDB1C5130A60042ADA0 /* Crazy Helicopter Pilot Simulator */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6D4BABEE1C5130A60042ADA0 /* Build configuration list for PBXNativeTarget "CoreMotionExample" */;
+			buildConfigurationList = 6D4BABEE1C5130A60042ADA0 /* Build configuration list for PBXNativeTarget "Crazy Helicopter Pilot Simulator" */;
 			buildPhases = (
 				6D4BABD81C5130A60042ADA0 /* Sources */,
 				6D4BABD91C5130A60042ADA0 /* Frameworks */,
@@ -130,9 +130,9 @@
 			);
 			dependencies = (
 			);
-			name = CoreMotionExample;
+			name = "Crazy Helicopter Pilot Simulator";
 			productName = CoreMotionExample;
-			productReference = 6D4BABDC1C5130A60042ADA0 /* CoreMotionExample.app */;
+			productReference = 6D4BABDC1C5130A60042ADA0 /* Crazy Helicopter Pilot Simulator.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -152,7 +152,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6D4BABD71C5130A60042ADA0 /* Build configuration list for PBXProject "CoreMotionExample" */;
+			buildConfigurationList = 6D4BABD71C5130A60042ADA0 /* Build configuration list for PBXProject "Crazy Helicopter Pilot Simulator" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -165,7 +165,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6D4BABDB1C5130A60042ADA0 /* CoreMotionExample */,
+				6D4BABDB1C5130A60042ADA0 /* Crazy Helicopter Pilot Simulator */,
 			);
 		};
 /* End PBXProject section */
@@ -377,7 +377,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6D4BABD71C5130A60042ADA0 /* Build configuration list for PBXProject "CoreMotionExample" */ = {
+		6D4BABD71C5130A60042ADA0 /* Build configuration list for PBXProject "Crazy Helicopter Pilot Simulator" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6D4BABEC1C5130A60042ADA0 /* Debug */,
@@ -386,7 +386,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6D4BABEE1C5130A60042ADA0 /* Build configuration list for PBXNativeTarget "CoreMotionExample" */ = {
+		6D4BABEE1C5130A60042ADA0 /* Build configuration list for PBXNativeTarget "Crazy Helicopter Pilot Simulator" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6D4BABEF1C5130A60042ADA0 /* Debug */,
