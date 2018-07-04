@@ -216,7 +216,7 @@ class GyroHelicopter(Heli):
     RATIO_TO_DEGREES = 6.4285
     
     NICK_SMOOTH = 40
-    ROLL_SMOOTH = 25
+    ROLL_SMOOTH = 40
     GIER_SMOOTH = 80
     
     currentX = 0
